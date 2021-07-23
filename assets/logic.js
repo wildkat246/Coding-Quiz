@@ -3,10 +3,10 @@
 var startButton = document.querySelector("#start");
 var timerbox = document.querySelector("#timer");
 var qustionBox = document.querySelector("#question");
-var results = document.querySelector("results")
+var results = document.querySelector("#results")
 
 //variable to keep of time and score 
-var timeLeft = 100;
+var timeLeft = 5;
 
 
 //FUNCTIONS 
@@ -17,12 +17,18 @@ function startQuiz() {
 
 
 function startTimer() {
-    //use innerText to put time left in timer box 
-    timerbox.innerHTML = `
-        <h3>time left: ${timeLeft}</h3>
-    `
-    timeLeft--;
+
+    var timeRemaing = setInterval(function() {
+        if (timeLeft > 0) {
+            timeLeft--; 
+            timerbox.innerHTML = `
+            <h3>time left: ${timeLeft}</h3>
+        `
+        }
+        else if (timeLeft === 0) clearInterval(timeRemaing);
+    }, 1000);
 }
+
 
 var questions=[
     {
@@ -53,6 +59,6 @@ function showResults() {
 }
 
 //Set interval to repeat start time every second 
-window.setInterval(startTimer, 1000);
+//window.setInterval(startTimer, 1000);
 
 //EVENT LISTENERS 
