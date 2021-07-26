@@ -1,19 +1,25 @@
 //GLOBAL VARIABLES 
 //variabel to target html elements
+var body = document.body;
 var startButton = document.querySelector("#start");
 var timerbox = document.querySelector("#timer");
 var choices = document.querySelector("#choices");
 var qustionBox = document.querySelector("#question");
 var results = document.querySelector("#results");
+var score = document.querySelector("#score")
+var titleText = document.querySelector("#titleText")
 var clearScore = document.querySelector("#clear-score");
 
 //variable to keep of time and score 
 var timeLeft = 5;
+var startingScore =0;
 
 
 timerbox.innerHTML = `
 <h3>time left: ${timeLeft}</h3>
 `
+
+score.innerHTML = startingScore;
 
 function startTimer() {
     var timeRemaing = setInterval(function() {
@@ -55,20 +61,48 @@ var question = [
 
 function startQuiz() {
     startTimer();
-    startButton.setAttribute("class", "hide");    
+    startButton.setAttribute("class", "hide");
+    choices.classList.remove("hide");
+    titleText.remove();
+    for (var i = 0; i < questions.length; i++) {
+        // Creating a new div for each question in our question array
+        var newQuestion = document.createElement("div");
+        newQuestion.setAttribute("class","newQuestion hide");
+        // Creating a new h1 for each question
+        var questionTitle = document.createElement("h1");
+        questionTitle.setAttribute("class","questionTitle");
+        // Setting the innerhtml of the h1 we created to = each question title;
+        questionTitle.innerHTML = questions[i].question;
+        // Injecting the h1 into our new div we created
+        newQuestion.append(questionTitle);
+        // injecting all the new divs we created onto the page, before the body element
+        body.prepend(newQuestion);
+        // Executing a function for each answer choice inside each question
+        questions[i].choices.forEach(choice => {
+        }) 
+    } // Outside of the loop, we are getting all the new elements we created, and storing them into a new array
+    var newQuestions = document.querySelectorAll(".newQuestion");
+    // Setting the first question to show
+    newQuestions[3].classList.remove("hide");
 }
 
-startGame = () =>
-questions.forEach(question =>{
-    var newQuestion = document.createElement("div");
-    newQuestion.setAttribute("class", "question");
-    var newQuestionT = document.createElement("div");
-    newQuestion.setAttribute("class", "question");
-    var newQuestionS = document.createElement("div");
-    newQuestionM = document.createElement("div");
-    var newQuestionB = document.createElement("div");
-    console.log(question.correctAnswer);
-}) 
+
+
+
+
+
+
+// startGame = () =>
+// questions.forEach(question =>{
+//     var newQuestion = document.createElement("div");
+//     newQuestion.setAttribute("class", "question");
+//     var newQuestionT = document.createElement("div");
+//     newQuestion.setAttribute("class", "question");
+//     var newQuestionS = document.createElement("div");
+//     newQuestionM = document.createElement("div");
+//     var newQuestionB = document.createElement("div");
+//     console.log(question.correctAnswer);
+// }) 
 
 function showProgress() {
     var currentQuestionNumber = quiz.questionIndex + 1;
