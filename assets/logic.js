@@ -2,22 +2,20 @@
 //variabel to target html elements
 var startButton = document.querySelector("#start");
 var timerbox = document.querySelector("#timer");
+var choices = document.querySelector("#choices");
 var qustionBox = document.querySelector("#question");
-var results = document.querySelector("#results")
+var results = document.querySelector("#results");
+var clearScore = document.querySelector("#clear-score");
 
 //variable to keep of time and score 
 var timeLeft = 5;
 
 
-//FUNCTIONS 
-function startQuiz() {
-    startTimer();
-    startButton.setAttribute("class", "hide")
-}
-
+timerbox.innerHTML = `
+<h3>time left: ${timeLeft}</h3>
+`
 
 function startTimer() {
-
     var timeRemaing = setInterval(function() {
         if (timeLeft > 0) {
             timeLeft--; 
@@ -30,11 +28,11 @@ function startTimer() {
 }
 
 
-var questions=[
+var question = [
     {
         question:'What college team is in Alabma?',
         choices: ['Alabama','Georgia','Miami','Tennesse'],
-        correctAnswer:'Apples' 
+        correctAnswer:'Alabama' 
     },
     {
         question:'What is your favorite food2?',
@@ -54,11 +52,37 @@ var questions=[
 ];
 
 
-function showResults() {
 
+function startQuiz() {
+    startTimer();
+    startButton.setAttribute("class", "hide");    
 }
 
-//Set interval to repeat start time every second 
-//window.setInterval(startTimer, 1000);
+startGame = () =>
+questions.forEach(question =>{
+    var newQuestion = document.createElement("div");
+    newQuestion.setAttribute("class", "question");
+    var newQuestionT = document.createElement("div");
+    newQuestion.setAttribute("class", "question");
+    var newQuestionS = document.createElement("div");
+    newQuestionM = document.createElement("div");
+    var newQuestionB = document.createElement("div");
+    console.log(question.correctAnswer);
+}) 
 
-//EVENT LISTENERS 
+function showProgress() {
+    var currentQuestionNumber = quiz.questionIndex + 1;
+    var element = document.getElementById("progress");
+    element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
+};
+
+function showScores() {
+    var gameOverHTML = "<h1>Result</h1>";
+    gameOverHTML += "<h2 id='score'> Your scores: " + quiz.score + "</h2>";
+    var element = document.getElementById("quiz");
+    element.innerHTML = gameOverHTML;
+};
+
+function endGame() {
+    MessageChannel.innerHTML = "Game Over";
+}
